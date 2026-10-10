@@ -1,610 +1,78 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <meta
-      name="description"
-      content="Mohammadreza Sotoudeh — mechanical engineering student interested in control systems, robotics, simulation, embedded systems, and mechanical design."
-    />
-
-    <meta name="theme-color" content="#061225" />
-
-    <title>Mohammadreza Sotoudeh | Mechanical Engineering Portfolio</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="assets/styles.css" />
-  </head>
-
-  <body>
-    <div class="site-shell">
-      <canvas id="robot-canvas" aria-hidden="true"></canvas>
-      <div class="background-grid" aria-hidden="true"></div>
-
-      <!-- Header -->
-      <header class="site-header">
-        <a class="brand" href="#home" aria-label="Home">
-          <span class="brand-mark">MS</span>
-          <span class="brand-name">MOHAMMADREZA SOTOUDEH</span>
-        </a>
-
-        <button
-          class="menu-toggle"
-          type="button"
-          aria-label="Toggle navigation"
-          aria-expanded="false"
-          aria-controls="primary-navigation"
-        >
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav
-          class="primary-navigation"
-          id="primary-navigation"
-          aria-label="Main navigation"
-        >
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#interests">Interests</a>
-          <a href="#contact" class="nav-contact">
-            Contact <span aria-hidden="true">↗</span>
-          </a>
-        </nav>
-      </header>
-
-      <main>
-        <!-- Hero -->
-        <section class="hero section" id="home">
-          <div class="hero-copy">
-            <p class="eyebrow">
-              <span class="status-dot"></span>
-              MECHANICAL ENGINEERING · SHARIF UNIVERSITY OF TECHNOLOGY
-            </p>
-
-            <h1>
-              Engineering ideas into
-              <span class="gradient-text">working systems.</span>
-            </h1>
-
-            <p class="hero-description">
-              I’m Mohammadreza, a mechanical engineering student interested in
-              control, robotics, dynamic systems, and computational engineering.
-              I enjoy connecting analytical models with simulation and practical design.
-            </p>
-
-            <div class="hero-actions">
-              <a class="button button-primary" href="#projects">
-                Explore my work <span aria-hidden="true">↘</span>
-              </a>
-
-              <a class="button button-secondary" href="#contact">
-                Get in touch <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-
-            <div class="hero-meta">
-              <div>
-                <span class="meta-label">FOCUS</span>
-                <span class="meta-value">
-                  Control · Robotics · Simulation
-                </span>
-              </div>
-
-              <div>
-                <span class="meta-label">APPROACH</span>
-                <span class="meta-value">
-                  Model · Simulate · Improve
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Decorative engineering visual -->
-          <div class="hero-visual" aria-label="Engineering-inspired visual">
-            <div class="orbit orbit-one"></div>
-            <div class="orbit orbit-two"></div>
-            <div class="orbit orbit-three"></div>
-
-            <div class="visual-core">
-              <div class="core-cross"></div>
-              <span class="core-label">ME</span>
-              <span class="core-caption">SYSTEMS THINKING</span>
-            </div>
-
-            <div class="floating-tag tag-control">
-              <span class="tag-icon">⌁</span>
-              CONTROL SYSTEMS
-            </div>
-
-            <div class="floating-tag tag-cad">
-              <span class="tag-icon">◇</span>
-              MECHANICAL DESIGN
-            </div>
-
-            <div class="floating-tag tag-cfd">
-              <span class="tag-icon">≈</span>
-              CFD &amp; SIMULATION
-            </div>
-
-            <div class="visual-coordinate">
-              35°42' N<br />
-              51°21' E
-            </div>
-          </div>
-        </section>
-
-        <!-- Areas of interest ticker -->
-        <section class="ticker" aria-label="Areas of interest">
-          <div class="ticker-track">
-            <span>CONTROL SYSTEMS</span><i>✳</i>
-            <span>ROBOTICS</span><i>✳</i>
-            <span>DYNAMIC MODELING</span><i>✳</i>
-            <span>CFD</span><i>✳</i>
-            <span>MECHANICAL DESIGN</span><i>✳</i>
-            <span>SIMULATION</span><i>✳</i>
-            <span>CONTROL SYSTEMS</span><i>✳</i>
-            <span>ROBOTICS</span><i>✳</i>
-          </div>
-        </section>
-
-        <!-- About -->
-        <section class="section about-section" id="about">
-          <div class="section-heading">
-            <p class="eyebrow">01 / ABOUT</p>
-
-            <h2>
-              Curious by design.<br />
-              <span class="muted-heading">Analytical by habit.</span>
-            </h2>
-          </div>
-
-          <div class="about-content">
-            <p class="about-lead">
-              I’m drawn to engineering problems where mechanics, mathematics,
-              and computation meet.
-            </p>
-
-            <p>
-              My projects have ranged from dynamic modeling and feedback control
-              to machine design and fluid-flow simulation. I value understanding
-              the assumptions behind a model, checking results against physical
-              intuition, and communicating the reasoning clearly—not just
-              producing a result.
-            </p>
-
-            <div class="skill-groups">
-              <div class="skill-group">
-                <span class="skill-number">01</span>
-                <div>
-                  <h3>Modeling &amp; Control</h3>
-                  <p>
-                    System dynamics, feedback control, MATLAB/Simulink,
-                    numerical analysis
-                  </p>
-                </div>
-              </div>
-
-              <div class="skill-group">
-                <span class="skill-number">02</span>
-                <div>
-                  <h3>Design &amp; Mechanics</h3>
-                  <p>
-                    Machine elements, mechanisms, CAD assemblies,
-                    structural reasoning
-                  </p>
-                </div>
-              </div>
-
-              <div class="skill-group">
-                <span class="skill-number">03</span>
-                <div>
-                  <h3>Computational Engineering</h3>
-                  <p>
-                    ANSYS Fluent, CFD post-processing, scientific computing,
-                    PINNs
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Projects -->
-        <section class="section projects-section" id="projects">
-          <div class="section-heading projects-heading">
-            <div>
-              <p class="eyebrow">02 / SELECTED WORK</p>
-              <h2>
-                Projects built on
-                <span class="gradient-text">curiosity.</span>
-              </h2>
-            </div>
-
-            <p class="section-note">
-              A selection of academic and computational engineering work.
-            </p>
-          </div>
-
-          <div class="project-grid" id="project-grid">
-            <!-- Project 1 -->
-            <article class="project-card project-featured">
-              <div class="project-card-top">
-                <span class="project-index">PROJECT 01</span>
-                <span class="project-type">CONTROL</span>
-              </div>
-
-              <div class="project-art art-control" aria-hidden="true">
-                <div class="signal-axis"></div>
-
-                <svg viewBox="0 0 500 170" role="presentation">
-                  <path d="M10 135 H490 M10 20 V145" class="chart-axis" />
-
-                  <path
-                    d="M10 130 C60 130 70 115 100 70 S150 25 190 50 S245 112 290 92 S365 60 405 70 S460 70 490 70"
-                    class="chart-line chart-line-blue"
-                  />
-
-                  <path
-                    d="M10 130 H490"
-                    class="chart-line chart-line-muted"
-                  />
-                </svg>
-
-                <span class="art-label">STEP RESPONSE / PI</span>
-              </div>
-
-              <h3>DC Motor Speed Control</h3>
-
-              <p>
-                Dynamic modeling and feedback control of a DC motor, with
-                PI-controller behavior investigated in MATLAB/Simulink.
-              </p>
-
-              <div class="tag-list">
-                <span>MATLAB</span>
-                <span>Simulink</span>
-                <span>PI Control</span>
-              </div>
-
-              <a class="project-link" href="#contact">
-                Discuss project <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-
-            <!-- Project 2 -->
-            <article class="project-card">
-              <div class="project-card-top">
-                <span class="project-index">PROJECT 02</span>
-                <span class="project-type">MULTIBODY DYNAMICS</span>
-              </div>
-
-              <div class="project-art art-pump" aria-hidden="true">
-                <div class="pump-wheel"><span></span></div>
-                <div class="pump-rod"></div>
-                <div class="pump-base"></div>
-                <span class="art-label">100 RPM / 300 RPM</span>
-              </div>
-
-              <h3>Reciprocating Pump Dynamics</h3>
-
-              <p>
-                Simscape Multibody modeling to examine mechanism motion and
-                compare dynamic behavior at different operating speeds and
-                flywheel configurations.
-              </p>
-
-              <div class="tag-list">
-                <span>Simscape</span>
-                <span>Dynamics</span>
-                <span>Flywheel</span>
-              </div>
-
-              <a class="project-link" href="#contact">
-                Discuss project <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-
-            <!-- Project 3 -->
-            <article class="project-card">
-              <div class="project-card-top">
-                <span class="project-index">PROJECT 03</span>
-                <span class="project-type">CFD / AERODYNAMICS</span>
-              </div>
-
-              <div class="project-art art-airfoil" aria-hidden="true">
-                <div class="flow-line flow-a"></div>
-                <div class="flow-line flow-b"></div>
-                <div class="flow-line flow-c"></div>
-                <div class="flow-line flow-d"></div>
-
-                <svg viewBox="0 0 500 170" role="presentation">
-                  <path
-                    d="M55 90 C130 45 260 54 420 88 C285 78 140 90 55 90 Z"
-                    class="airfoil-shape"
-                  />
-                </svg>
-
-                <span class="art-label">NACA 6409 / FLOW FIELD</span>
-              </div>
-
-              <h3>Airfoil Flow Analysis</h3>
-
-              <p>
-                Comparison of potential-flow modeling, ANSYS Fluent results,
-                and physics-informed neural networks for incompressible flow
-                around an airfoil.
-              </p>
-
-              <div class="tag-list">
-                <span>ANSYS Fluent</span>
-                <span>MATLAB</span>
-                <span>PINNs</span>
-              </div>
-
-              <a class="project-link" href="#contact">
-                Discuss project <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-
-            <!-- Project 4 -->
-            <article class="project-card">
-              <div class="project-card-top">
-                <span class="project-index">PROJECT 04</span>
-                <span class="project-type">MACHINE DESIGN</span>
-              </div>
-
-              <div class="project-art art-gearbox" aria-hidden="true">
-                <div class="gear gear-large"></div>
-                <div class="gear gear-small"></div>
-                <div class="gearbox-frame"></div>
-                <span class="art-label">TWO-STAGE TRANSMISSION</span>
-              </div>
-
-              <h3>Two-Stage Gearbox Design</h3>
-
-              <p>
-                Mechanical design workflow involving gear selection, shaft
-                and bearing considerations, housing, and a complete CAD assembly.
-              </p>
-
-              <div class="tag-list">
-                <span>SolidWorks</span>
-                <span>Machine Design</span>
-                <span>Gears</span>
-              </div>
-
-              <a class="project-link" href="#contact">
-                Discuss project <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-
-            <!-- Project 5 -->
-            <article class="project-card">
-              <div class="project-card-top">
-                <span class="project-index">PROJECT 05</span>
-                <span class="project-type">CFD / INTERNAL FLOW</span>
-              </div>
-
-              <div class="project-art art-nozzle" aria-hidden="true">
-                <div class="nozzle-wall nozzle-top"></div>
-                <div class="nozzle-wall nozzle-bottom"></div>
-                <div class="nozzle-stream stream-1"></div>
-                <div class="nozzle-stream stream-2"></div>
-                <div class="nozzle-stream stream-3"></div>
-                <span class="art-label">INTERNAL FLOW / CFD</span>
-              </div>
-
-              <h3>Internal-Flow CFD Analysis</h3>
-
-              <p>
-                Numerical investigation of 90° elbows, a conical diffuser,
-                and a converging-diverging nozzle, with MATLAB-based
-                post-processing.
-              </p>
-
-              <div class="tag-list">
-                <span>ANSYS Fluent</span>
-                <span>MATLAB</span>
-                <span>Fluid Mechanics</span>
-              </div>
-
-              <a class="project-link" href="#contact">
-                Discuss project <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-
-            <!-- Project 6 -->
-            <article class="project-card">
-              <div class="project-card-top">
-                <span class="project-index">PROJECT 06</span>
-                <span class="project-type">MECHANICAL DESIGN</span>
-              </div>
-
-              <div class="project-art art-crane" aria-hidden="true">
-                <div class="crane-mast"></div>
-                <div class="crane-boom"></div>
-                <div class="crane-brace"></div>
-                <div class="crane-hook"></div>
-                <div class="crane-base"></div>
-                <span class="art-label">DESIGN / LOAD PATH</span>
-              </div>
-
-              <h3>Forklift Crane Attachment</h3>
-
-              <p>
-                Academic design of an attachment for a 3-ton forklift,
-                including load calculations, structural members, pins, bolts,
-                welds, and CAD drawings.
-              </p>
-
-              <div class="tag-list">
-                <span>SolidWorks</span>
-                <span>Design Calculations</span>
-                <span>CAD</span>
-              </div>
-
-              <a class="project-link" href="#contact">
-                Discuss project <span aria-hidden="true">↗</span>
-              </a>
-            </article>
-          </div>
-
-          <p class="projects-footnote">
-            Project descriptions summarize academic work. Detailed reports,
-            source code, and repository links can be added where available.
-          </p>
-        </section>
-
-        <!-- Interests -->
-        <section class="section interests-section" id="interests">
-          <div class="section-heading">
-            <p class="eyebrow">03 / WHAT I’M EXPLORING</p>
-
-            <h2>
-              Where mechanics meets
-              <span class="gradient-text">intelligence.</span>
-            </h2>
-          </div>
-
-          <div class="interest-grid">
-            <div class="interest-item">
-              <span class="interest-symbol">↗</span>
-              <h3>Control Systems</h3>
-              <p>Feedback, system identification, and robust performance.</p>
-            </div>
-
-            <div class="interest-item">
-              <span class="interest-symbol">⌘</span>
-              <h3>Robotics &amp; Automation</h3>
-              <p>Mechanisms, motion, and intelligent machines.</p>
-            </div>
-
-            <div class="interest-item">
-              <span class="interest-symbol">∿</span>
-              <h3>Scientific Machine Learning</h3>
-              <p>Physics-informed learning and data-driven models.</p>
-            </div>
-
-            <div class="interest-item">
-              <span class="interest-symbol">◈</span>
-              <h3>Embedded Systems</h3>
-              <p>Connecting algorithms with real-world hardware.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Contact -->
-        <section class="contact-section section" id="contact">
-          <div class="contact-panel">
-            <div>
-              <p class="eyebrow">04 / CONTACT</p>
-
-              <h2>
-                Have an interesting<br />
-                <span class="gradient-text">engineering problem?</span>
-              </h2>
-
-              <p class="contact-description">
-                I’m open to research conversations, technical collaborations,
-                and internship opportunities related to control, robotics,
-                and mechanical engineering.
-              </p>
-            </div>
-
-            <div class="contact-links">
-              <!-- Replace these placeholders with your real contact details. -->
-              <a
-                href="mailto:YOUR_EMAIL@example.com"
-                class="contact-link"
-              >
-                <span>
-                  <small>EMAIL</small>
-                  <strong>YOUR_EMAIL@example.com</strong>
-                </span>
-                <span aria-hidden="true">↗</span>
-              </a>
-
-              <a
-                href="https://github.com/YOUR_GITHUB"
-                class="contact-link"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span>
-                  <small>GITHUB</small>
-                  <strong>View repositories</strong>
-                </span>
-                <span aria-hidden="true">↗</span>
-              </a>
-
-              <a
-                href="https://www.linkedin.com/in/YOUR_LINKEDIN/"
-                class="contact-link"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span>
-                  <small>LINKEDIN</small>
-                  <strong>Connect professionally</strong>
-                </span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <!-- Footer -->
-      <footer class="site-footer">
-        <a class="footer-brand" href="#home">MS<span>.</span></a>
-
-        <p>Designed around curiosity. Built with engineering.</p>
-
-        <span class="footer-year">
-          © <span id="current-year">2026</span>
-          MOHAMMADREZA SOTOUDEH
-        </span>
-      </footer>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Mohammadreza Sotoudeh — mechanical engineering student at Sharif University of Technology working on dynamics, control, robotics, and computational mechanics." />
+<meta name="theme-color" content="#0b1f3a" />
+<title>Mohammadreza Sotoudeh | Mechanical Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<script src="assets/script.js" defer></script>
+<script src="assets/robot.js" defer></script>
+</head>
+<body>
+<canvas id="robot-canvas" aria-hidden="true"></canvas>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="#home" aria-label="Mohammadreza Sotoudeh, home"><span class="brand-mark">MS</span><span>Mohammadreza Sotoudeh</span></a>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation"><span></span><span></span></button>
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <a href="#about">About</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero" id="home">
+    <p class="kicker">Mechanical Engineering, Sharif University of Technology</p>
+    <h1>Mohammadreza<br />Sotoudeh</h1>
+    <p class="lead">I build and analyze mechanical systems: models in MATLAB and Simulink, designs in SolidWorks, flow studies in ANSYS Fluent, and physics-informed neural networks in PyTorch. I am heading toward robotics and mechatronics.</p>
+    <div class="actions"><a class="button primary" href="#projects">See projects</a><a class="button" href="https://github.com/mreza-sotoudeh" target="_blank" rel="noreferrer">GitHub profile</a></div>
+    <button class="robot-motion" type="button" aria-pressed="false">Pause arm</button>
+  </section>
+
+  <section class="section" id="about">
+    <h2>Models first, then metal.</h2>
+    <div class="about-grid">
+      <div>
+        <p>I am a B.Sc. student in Mechanical Engineering with a focus on dynamics, control, and mechatronics. I like checking a model's assumptions against physical intuition, and explaining the reasoning, not only the result.</p>
+        <p>Outside coursework I interned in industry, where I worked on machine performance evaluation and a digital readout (DRO) concept for a milling machine, and I have been a teaching assistant for several mechanical engineering courses.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>GPA</dt><dd>19.14 / 20, 3rd of 126 students</dd></div>
+        <div><dt>Tools</dt><dd>MATLAB, Simulink, Python, PyTorch, SolidWorks, ANSYS Fluent, Arduino</dd></div>
+        <div><dt>Interests</dt><dd>Robotics, control, biomechanics, CFD, physics-informed machine learning</dd></div>
+        <div><dt>Language</dt><dd>English, C1</dd></div>
+      </dl>
     </div>
+  </section>
 
-    <script src="assets/script.js"></script>
-    <script src="assets/robot.js"></script>
+  <section class="section" id="projects">
+    <h2>Projects</h2>
+    <p class="intro">Select a project to see what I did and open its repository.</p>
+    <div class="project-grid" id="project-grid"></div>
+    <p class="more">Also on GitHub: FEA of perforated filter screens, Arduino embedded systems, a pipe-flow PINN, and numerical analysis in Python.</p>
+  </section>
 
-    <script>
-      // Keep the copyright year current.
-      const yearElement = document.getElementById("current-year");
-      if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-      }
+  <section class="section" id="contact">
+    <h2>Let's talk.</h2>
+    <p class="intro">I am open to research conversations, internships, and collaborations in control, robotics, and mechanical engineering.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/mohammadreza-sotoudeh84/" target="_blank" rel="noreferrer"><span>LinkedIn</span><strong>mohammadreza-sotoudeh84</strong></a>
+      <a href="https://github.com/mreza-sotoudeh" target="_blank" rel="noreferrer"><span>GitHub</span><strong>mreza-sotoudeh</strong></a>
+    </div>
+  </section>
+</main>
+<footer class="site-footer"><span>Mohammadreza Sotoudeh</span><span>© <span id="year"></span></span></footer>
 
-      // Accessible mobile navigation.
-      const menuToggle = document.querySelector(".menu-toggle");
-      const navigation = document.querySelector(".primary-navigation");
-
-      if (menuToggle && navigation) {
-        menuToggle.addEventListener("click", () => {
-          const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-          menuToggle.setAttribute("aria-expanded", String(!isOpen));
-          navigation.classList.toggle("is-open", !isOpen);
-        });
-
-        navigation.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => {
-            menuToggle.setAttribute("aria-expanded", "false");
-            navigation.classList.remove("is-open");
-          });
-        });
-      }
-    </script>
-  </body>
+<dialog class="project-dialog" id="project-dialog">
+  <button class="dialog-close" type="button" aria-label="Close project details">×</button>
+  <img id="dialog-img" alt="" />
+  <p class="dialog-type" id="dialog-type"></p>
+  <h3 id="dialog-title"></h3>
+  <p id="dialog-description"></p>
+  <div class="tags" id="dialog-tags"></div>
+  <a class="button primary" id="dialog-link" href="#" target="_blank" rel="noreferrer">Open repository</a>
+</dialog>
+</body>
 </html>
