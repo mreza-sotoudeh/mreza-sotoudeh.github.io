@@ -1,85 +1,65 @@
-const projects = {
-  forklift: {
-    type: "Mechanical Design",
-    title: "Forklift Crane Attachment",
-    description: "A removable and manually adjustable crane attachment developed for a 3-ton forklift. The work includes stability checks, static loading, bolts, pins, welds, structural members, manufacturing drawings, and a complete SolidWorks assembly. This is an academic design and has not been fabricated or certified for lifting operations.",
-    tags: ["SolidWorks", "Machine Design", "Structural Analysis", "Engineering Drawings"],
-    link: "https://github.com/alisakhaei/forklift-crane-attachment"
-  },
-  motor: {
-    type: "Control & Simulation",
-    title: "DC Motor Speed Control",
-    description: "Modeling and simulation of a separately excited DC motor. The repository compares open-loop behavior with closed-loop speed regulation using a PI controller and armature-voltage saturation in MATLAB/Simulink.",
-    tags: ["MATLAB", "Simulink", "Dynamic Modeling", "PI Control"],
-    link: "https://github.com/alisakhaei/dc-motor-speed-control"
-  },
-  gearbox: {
-    type: "Machine Design",
-    title: "Two-Stage Gearbox",
-    description: "Mechanical design and analysis of a two-stage gearbox, covering gears, shafts, bearings, housing, component selection, engineering calculations, and the final SolidWorks assembly.",
-    tags: ["SolidWorks", "Gear Design", "Shaft Design", "Bearings"],
-    link: "https://github.com/alisakhaei/gearbox-design"
-  },
-  pump: {
-    type: "Multibody Dynamics",
-    title: "Reciprocating Pump Dynamics",
-    description: "A Simscape Multibody model of a reciprocating pump mechanism. The study compares operation at 100 and 300 rpm and examines how adding a flywheel changes torque and system response.",
-    tags: ["MATLAB", "Simscape Multibody", "Dynamics", "Flywheel"],
-    link: "https://github.com/alisakhaei/reciprocating-pump-dynamics"
-  },
-  pinn: {
-    type: "Computational Methods",
-    title: "Airfoil Flow with PINNs",
-    description: "A computational study of two-dimensional airfoil flow using potential-flow methods and physics-informed neural networks. The repository includes Python notebooks, trained models, MATLAB scripts, datasets, and flow-field results.",
-    tags: ["Python", "PyTorch", "PINN", "Potential Flow"],
-    link: "https://github.com/alisakhaei/airfoil-flow-pinn"
-  },
-  fluent: {
-    type: "CFD",
-    title: "ANSYS Fluent Flow Analysis",
-    description: "A collection of CFD studies covering diffuser flow, pressure loss in pipe elbows, and compressible nozzle flow. MATLAB scripts are used for additional data processing and result visualization.",
-    tags: ["ANSYS Fluent", "MATLAB", "CFD", "Post-processing"],
-    link: "https://github.com/alisakhaei/ansys-fluent-flow-analysis"
-  }
-};
+const GH = "https://github.com/mreza-sotoudeh";
+// Repositories I could confirm on the profile have direct links.
+// For the others, replace `link` with the exact repository URL.
+const projects = [
+  { id: "airfoil", img: "assets/poster-airfoil.png", type: "Computational Methods", title: "Flow Around an Airfoil",
+    summary: "Panel method, ANSYS Fluent, and PINNs compared on NACA 6409 and NACA 0024.",
+    description: "Incompressible flow around NACA 6409 and NACA 0024 airfoils studied three ways: a source panel method in MATLAB, CFD in ANSYS Fluent (C-type meshes, Standard k-ε with Enhanced Wall Treatment, mesh-independence studies up to near-stall angles), and physics-informed neural networks in PyTorch. Pressure coefficients, lift and drag, contours, and streamlines are compared across methods.",
+    tags: ["Python", "PyTorch", "PINN", "ANSYS Fluent", "MATLAB"], link: GH + "?tab=repositories" },
+  { id: "pump", img: "assets/poster-pump.png", type: "Multibody Dynamics", title: "Reciprocating Pump Dynamics",
+    summary: "Crank, rod, and piston modeled in Simscape Multibody, with flywheel torque analysis.",
+    description: "A multibody model of a reciprocating pump built in MATLAB, Simulink, and Simscape Multibody. The crank, connecting rod, piston, and cylinder are modeled, and the mechanism is simulated at different operating speeds to study kinematic behavior and the torque required, including the effect of a flywheel.",
+    tags: ["MATLAB", "Simulink", "Simscape Multibody", "Flywheel"], link: GH + "/reciprocating-pump-dynamics" },
+  { id: "forklift", img: "assets/poster-forklift.png", type: "Mechanical Design", title: "Forklift Crane Attachment",
+    summary: "Adjustable, demountable crane attachment for a 3-ton forklift.",
+    description: "A team design of an adjustable, demountable crane attachment for a 3-ton forklift. Stability and structural load cases were evaluated, and the boom, bolts, pins, and welded joints were designed. The work includes SolidWorks parts, assemblies, and manufacturing drawings. It is an academic design and has not been fabricated or certified for lifting.",
+    tags: ["SolidWorks", "Machine Design", "Structural Analysis"], link: GH + "/forklift-crane-attachment" },
+  { id: "gearbox", img: "assets/poster-gearbox.png", type: "Machine Design", title: "Gearbox Design",
+    summary: "Gears, shafts, bearings, and engineering calculations for a gearbox.",
+    description: "Mechanical design and analysis of a gearbox, covering gear design, shafts, bearings, and the supporting load and strength calculations, with component selection and safety-factor checks.",
+    tags: ["SolidWorks", "Gears", "Shafts", "Bearings"], link: GH + "/gearbox-design" },
+  { id: "dro", img: "assets/poster-dro.png", type: "Industrial Internship", title: "DRO for a Milling Machine",
+    summary: "Installation concept for a digital readout system on a manual mill.",
+    description: "Developed an installation concept for a Digital Readout (DRO) system for a manual milling machine during an industrial internship. Studied magnetic linear encoders, analyzed system specifications and measurement accuracy, took dimensional measurements, and developed the installation concept in SolidWorks.",
+    tags: ["SolidWorks", "Encoders", "Measurement"], link: GH + "/DRO-installation-for-milling-machine" },
+  { id: "cfd", img: "assets/poster-cfd.png", type: "CFD", title: "Internal-Flow CFD",
+    summary: "Curved ducts, a conical diffuser, and a converging-diverging nozzle in Fluent.",
+    description: "CFD simulations of flow through curved ducts, a 30° conical diffuser, and a converging-diverging nozzle in ANSYS Fluent. Mesh-independence studies were performed, and velocity distributions, pressure losses, and flow separation were analyzed, with MATLAB post-processing and comparison with theory.",
+    tags: ["ANSYS Fluent", "MATLAB", "Fluid Mechanics"], link: GH + "?tab=repositories" }
+];
 
-const menuButton = document.querySelector(".menu-button");
-const navigation = document.querySelector(".site-nav");
-menuButton.addEventListener("click", () => {
-  const expanded = menuButton.getAttribute("aria-expanded") === "true";
-  menuButton.setAttribute("aria-expanded", String(!expanded));
-  navigation.classList.toggle("open", !expanded);
-});
-navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-  navigation.classList.remove("open");
-  menuButton.setAttribute("aria-expanded", "false");
+const grid = document.querySelector("#project-grid");
+grid.replaceChildren(...projects.map((p) => {
+  const b = document.createElement("button");
+  b.className = "project-card"; b.type = "button"; b.dataset.id = p.id;
+  b.setAttribute("aria-label", `Open details for ${p.title}`);
+  b.innerHTML = `<img src="${p.img}" alt="" loading="lazy" /><div class="body"><h3></h3><p></p></div>`;
+  b.querySelector("h3").textContent = p.title; b.querySelector("p").textContent = p.summary;
+  return b;
 }));
 
-const dialog = document.querySelector("#project-dialog");
-const dialogType = document.querySelector("#dialog-type");
-const dialogTitle = document.querySelector("#dialog-title");
-const dialogDescription = document.querySelector("#dialog-description");
-const dialogTags = document.querySelector("#dialog-tags");
-const dialogLink = document.querySelector("#dialog-link");
-
-document.querySelectorAll(".project-open").forEach((button) => {
-  button.addEventListener("click", () => {
-    const project = projects[button.dataset.project];
-    dialogType.textContent = project.type;
-    dialogTitle.textContent = project.title;
-    dialogDescription.textContent = project.description;
-    dialogTags.replaceChildren(...project.tags.map((tag) => {
-      const element = document.createElement("span");
-      element.textContent = tag;
-      return element;
-    }));
-    dialogLink.href = project.link;
-    dialog.showModal();
-  });
+const menuButton = document.querySelector(".menu-button");
+const nav = document.querySelector(".site-nav");
+menuButton.addEventListener("click", () => {
+  const open = menuButton.getAttribute("aria-expanded") === "true";
+  menuButton.setAttribute("aria-expanded", String(!open)); nav.classList.toggle("open", !open);
 });
+nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+  nav.classList.remove("open"); menuButton.setAttribute("aria-expanded", "false");
+}));
 
-document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
-dialog.addEventListener("click", (event) => {
-  if (event.target === dialog) dialog.close();
+const dlg = document.querySelector("#project-dialog");
+grid.addEventListener("click", (e) => {
+  const card = e.target.closest(".project-card"); if (!card) return;
+  const p = projects.find((x) => x.id === card.dataset.id);
+  dlg.querySelector("#dialog-img").src = p.img;
+  dlg.querySelector("#dialog-type").textContent = p.type;
+  dlg.querySelector("#dialog-title").textContent = p.title;
+  dlg.querySelector("#dialog-description").textContent = p.description;
+  dlg.querySelector("#dialog-tags").replaceChildren(...p.tags.map((t) => Object.assign(document.createElement("span"), { textContent: t })));
+  dlg.querySelector("#dialog-link").href = p.link;
+  dlg.showModal();
 });
+dlg.querySelector(".dialog-close").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
 document.querySelector("#year").textContent = new Date().getFullYear();
