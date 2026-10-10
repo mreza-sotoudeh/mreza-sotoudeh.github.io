@@ -1,68 +1,81 @@
-// A three-link planar arm (FABRIK inverse kinematics) that follows the pointer.
 (() => {
-  const canvas = document.getElementById("robot-canvas");
-  const ctx = canvas.getContext("2d");
-  const toggle = document.querySelector(".robot-motion");
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let paused = reduced, W, H, base, lens, pts, target = { x: 0, y: 0 }, pointer = null, t = 0;
-
-  function resize() {
-    const d = devicePixelRatio || 1;
-    W = innerWidth; H = innerHeight;
-    canvas.width = W * d; canvas.height = H * d;
-    ctx.setTransform(d, 0, 0, d, 0, 0);
-    const s = Math.min(W, 900) / 900 * 0.95 + 0.25;
-    lens = [190, 160, 110].map((l) => l * s);
-    base = { x: W > 700 ? W * 0.82 : W * 0.5, y: H + 6 };
-    pts = [base, ...lens.map((_, i) => ({ x: base.x - 10 * (i + 1), y: base.y - lens.slice(0, i + 1).reduce((a, b) => a + b) }))];
-    draw();
+  'use strict';
+  const canvas = document.getElementById('robot-canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const button = document.querySelector('.robot-motion');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = reduced.matches, visible = true, frame = 0, last = 0, elapsed = 0;
+  let size = 450, height = 450, scale = 5, pointer = null, yaw = -.28, shoulder = 1.25, elbow = -1.6;
+  const add = (a,b) => a.map((v,i) => v+b[i]);
+  const sub = (a,b) => a.map((v,i) => v-b[i]);
+  const mul = (a,k) => a.map(v => v*k);
+  const cross = (a,b) => [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+  const unit = a => mul(a,1/(Math.hypot(...a)||1));
+  const clamp = (x,a,b) => Math.max(a,Math.min(b,x));
+  // Orthographic overhead view: XY is the working plane; +Z faces the viewer.
+  const camera = p => [p[0],p[1],-p[2]];
+  const project = p => { const q=camera(p); return [size*.5+q[0]*scale,height*.5-q[1]*scale]; };
+  let faces=[];
+  function tube(a,b,r,color,segments=12) {
+    const axis=unit(sub(b,a));
+    const u=unit(cross(axis,Math.abs(axis[1])>.9?[1,0,0]:[0,1,0]));
+    const v=cross(axis,u), rings=[a,b].map(c => Array.from({length:segments},(_,i) => add(c,add(mul(u,r*Math.cos(i*2*Math.PI/segments)),mul(v,r*Math.sin(i*2*Math.PI/segments))))));
+    const push=(pts,shade)=>faces.push({pts,color:color.map(c=>Math.round(c*shade)),depth:pts.reduce((n,p)=>n+camera(p)[2],0)/pts.length});
+    for(let i=0;i<segments;i++) { const j=(i+1)%segments;push([rings[0][i],rings[0][j],rings[1][j],rings[1][i]],.6+.35*(1+Math.cos(i*2*Math.PI/segments-.6))/2); }
+    push(rings[0],.65);push(rings[1],1);
   }
-  function solve() {
-    const reach = lens.reduce((a, b) => a + b);
-    let dx = target.x - base.x, dy = target.y - base.y, d = Math.hypot(dx, dy);
-    if (d > reach) { target = { x: base.x + dx / d * reach, y: base.y + dy / d * reach }; }
-    for (let k = 0; k < 8; k++) {
-      pts[3] = { ...target };
-      for (let i = 2; i >= 0; i--) { const v = sub(pts[i], pts[i + 1]); pts[i] = add(pts[i + 1], scale(v, lens[i])); }
-      pts[0] = { ...base };
-      for (let i = 0; i < 3; i++) { const v = sub(pts[i + 1], pts[i]); pts[i + 1] = add(pts[i], scale(v, lens[i])); }
+  function line(points,color,width=1) { ctx.beginPath();points.forEach((p,i)=>{const q=project(p);i?ctx.lineTo(...q):ctx.moveTo(...q);});ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke(); }
+  const mint=[90,169,255], steel=[96,130,176], dark=[20,45,86], blue=[160,205,255];
+  function draw(dt=0) {
+    ctx.clearRect(0,0,size,height);faces=[];
+    const t=elapsed;
+    // Invert the same orthographic camera used for rendering, on world z=0.
+    // Solve for the actual gripping point, not the wrist joint.
+    const screenTarget=pointer || {x:size*.5+Math.cos(t*.35)*scale*35,y:height*.5-scale*(38+Math.sin(t*.35)*8)};
+    const tx=(screenTarget.x-size*.5)/scale;
+    const ty=(height*.5-screenTarget.y)/scale;
+    const distance=Math.hypot(tx,ty);
+    const direction=distance>.001?[tx/distance,ty/distance,0]:[1,0,0];
+    const tip=[tx,ty,0];
+    const p0=[0,0,0], p2=sub(tip,mul(direction,10));
+    const d=Math.hypot(p2[0],p2[1]);
+    const axis=d>.001?mul(p2,1/d):[1,0,0];
+    // Restore telescopic reach while keeping the base and compact idle pose.
+    const length=Math.max(31,d/2+1.5);
+    const bend=Math.sqrt(Math.max(0,length*length-d*d/4));
+    const p1=add(mul(p2,.5),mul([-axis[1],axis[0],0],bend));
+    tube([0,0,-15],[0,0,-12],10,dark,24);
+    tube([0,0,-12],[0,0,-10],9,mint,24);
+    tube([0,0,-10],p0,5,steel,20);
+    const link=(a,b,r)=>{
+      const delta=sub(b,a), mid=add(a,mul(delta,.58));
+      tube(a,mid,r,steel);tube(mid,b,r*.72,dark);
+      tube(add(a,[0,0,r]),add(mid,[0,0,r]),.5,mint,8);
+    };
+    link(p0,p1,2.8);link(p1,p2,2.3);
+    const joint=(p,r)=>{tube(add(p,[0,0,-3]),add(p,[0,0,3]),r,dark,20);tube(add(p,[0,0,3]),add(p,[0,0,3.8]),r*.72,mint,20);};
+    joint(p0,4.8);joint(p1,3.8);joint(p2,3);
+    const wrist=add(p2,mul(direction,3));tube(p2,wrist,1.8,blue);
+    const side=[-direction[1],direction[0],0];
+    for(const sign of [-1,1]) {
+      const knuckle=add(wrist,mul(side,sign*3));
+      const finger=add(sub(tip,mul(direction,2)),mul(side,sign*2.4));
+      tube(wrist,knuckle,1,steel,8);tube(knuckle,finger,.8,steel,8);tube(finger,tip,.7,mint,8);
     }
+    faces.sort((a,b)=>b.depth-a.depth).forEach(f=>{ctx.beginPath();f.pts.forEach((p,i)=>{const q=project(p);i?ctx.lineTo(...q):ctx.moveTo(...q);});ctx.closePath();ctx.fillStyle=`rgb(${f.color.join(',')})`;ctx.fill();ctx.strokeStyle='rgba(3,10,20,.25)';ctx.lineWidth=.5;ctx.stroke();});
   }
-  const sub = (a, b) => ({ x: a.x - b.x, y: a.y - b.y });
-  const add = (a, b) => ({ x: a.x + b.x, y: a.y + b.y });
-  const scale = (v, l) => { const n = Math.hypot(v.x, v.y) || 1; return { x: v.x / n * l, y: v.y / n * l }; };
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.lineCap = "round"; ctx.lineJoin = "round";
-    ctx.strokeStyle = "rgba(255,180,84,.55)"; ctx.lineWidth = 14;
-    ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y))); ctx.stroke();
-    ctx.strokeStyle = "#0b1f3a"; ctx.lineWidth = 8; ctx.stroke();
-    pts.forEach((p, i) => {
-      ctx.beginPath(); ctx.arc(p.x, p.y, i === 3 ? 6 : 10, 0, 7);
-      ctx.fillStyle = i === 3 ? "#ffb454" : "#0b1f3a"; ctx.fill();
-      ctx.strokeStyle = "#ffb454"; ctx.lineWidth = 2; ctx.stroke();
-    });
-  }
-  function frame() {
-    if (!paused) {
-      t += 0.012;
-      target = pointer || { x: base.x - 150 + Math.sin(t) * 190, y: base.y - 280 + Math.cos(t * 1.3) * 70 };
-      solve(); draw();
-    }
-    requestAnimationFrame(frame);
-  }
-  addEventListener("resize", resize);
-  addEventListener("pointermove", (e) => { pointer = { x: e.clientX, y: e.clientY }; });
-  addEventListener("pointerleave", () => { pointer = null; });
-  if (toggle) {
-    toggle.setAttribute("aria-pressed", String(paused));
-    toggle.textContent = paused ? "Play arm" : "Pause arm";
-    toggle.addEventListener("click", () => {
-      paused = !paused;
-      toggle.setAttribute("aria-pressed", String(paused));
-      toggle.textContent = paused ? "Play arm" : "Pause arm";
-    });
-  }
-  resize(); requestAnimationFrame(frame);
+  function tick(now) { frame=0;const dt=last?Math.min((now-last)/1000,.05):0;last=now;elapsed+=dt;draw(dt);schedule(); }
+  function schedule() { if(!paused&&visible&&!document.hidden&&!frame)frame=requestAnimationFrame(tick); }
+  function stop() { if(frame)cancelAnimationFrame(frame);frame=0;last=0; }
+  function setPaused(value) { paused=value;button.textContent=paused?'Play animation':'Pause animation';button.setAttribute('aria-pressed',String(paused));button.setAttribute('aria-label',button.textContent);if(paused)stop();else schedule(); }
+  function resize() {const bounds=canvas.getBoundingClientRect();size=bounds.width;height=bounds.height;scale=Math.min(size,height)/240;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(size*dpr);canvas.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
+  new ResizeObserver(resize).observe(canvas);
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;visible?schedule():stop();}).observe(canvas);
+  window.addEventListener('pointermove',e=>{if(e.pointerType==='touch'||paused)return;const r=canvas.getBoundingClientRect();pointer={x:e.clientX-r.left,y:e.clientY-r.top};});
+  document.documentElement.addEventListener('pointerleave',()=>{pointer=null;});
+  button.addEventListener('click',()=>setPaused(!paused));
+  document.addEventListener('visibilitychange',()=>document.hidden?stop():schedule());
+  reduced.addEventListener('change',e=>{setPaused(e.matches);draw();});
+  setPaused(paused);resize();
 })();
